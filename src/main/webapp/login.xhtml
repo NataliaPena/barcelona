@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <title>PrimeFaces Barcelona</title>
+        <h:outputScript name="js/ripple.js" library="barcelona-layout" />
+        <h:outputScript name="js/layout.js" library="barcelona-layout" />
+    </h:head>
+
+    <h:body styleClass="login-body">
+        <h:form>
+            <p:growl id="growl" showDetail="true" sticky="true" />
+            <div class="login-panel ui-fluid">
+                <div class="ui-g">
+                    <div class="ui-g-12 login-header">
+                        <p:graphicImage name="images/camara2.png" library="barcelona-layout" style="align-content: center"/>
+                    </div>
+
+                    <div class="ui-g-12">
+                        <h:panelGroup styleClass="md-inputfield">
+                            <p:inputText value="#{mascotaController.nombreMascota}" label="Nombre de la mascota" style="text-align: center; color:white"></p:inputText>
+                            <p:outputLabel style="font-size: 20px; color: white; text-align: center" value="Nombre de la mascota"></p:outputLabel>
+                        </h:panelGroup>
+                    </div>
+
+                    <div class="ui-g-12">
+                        <h:panelGroup>
+                            <p:selectOneMenu id="tipo" value="#{mascotaController.mascotaSeleccionada}" style="text-align: center; color:white; font-size: 20px;"
+                                             label="Tipo de mascota" converter="tipoMascotaConverter"
+                                             filter="true" filterMatchMode="startsWith" panelStyle="width:200px">
+                                <f:selectItem itemLabel="Tipo de mascota"/>
+                                <f:selectItems value="#{tipoMascotaController.lstTipoMascota}"
+                                               var="tipoItem"
+                                               itemValue="#{tipoItem}"
+                                               itemLabel="#{tipoItem.descripcion.toString()}"/>
+                            </p:selectOneMenu>
+                        </h:panelGroup>
+                    </div>
+
+                    <div class="ui-g-12">
+                        <h:panelGroup styleClass="md-inputfield">
+                            <p:inputText value="#{mascotaController.edad}" style="text-align: center; color:white "/>
+                            <p:outputLabel style="font-size: 20px; color: white; text-align: center" value="Edad"></p:outputLabel>
+                        </h:panelGroup>
+                    </div>
+
+                    <div class="ui-g-12">
+                        <h:panelGroup styleClass="md-inputfield">
+                            <p:inputText value="#{mascotaController.raza}" style="text-align: center; color:white "/>
+                            <p:outputLabel style="font-size: 20px; color: white; text-align: center" value="Raza"></p:outputLabel>
+                        </h:panelGroup>
+                    </div>
+
+                    <div class="ui-g-12 button-container">
+                        <p:commandButton value="Inicio" style="background-color: white; color: #000000"
+                                         actionListener="#{mascotaController.guardarMascota()}"
+                                         update="growl, datalist">
+                        </p:commandButton>
+                    </div>
+
+                    <div class="ui-g-12">
+                        <p:panel header="Tabla de Mascotas" rendered="#{mascotaController.mostrarTabla}">
+                            <p:dataTable id="datalist"
+                                         value="#{mascotaController.lstMascotas}"
+                                         rowKey="#{item}"
+                                         lazy="false"
+                                         var="item"
+                                         reflow="true"
+                                         sortMode="multiple"
+                                         emptyMessage="No se Encontraron Mascotas">
+
+                                <p:column filterBy="#{item.nombreMascota}" filterMatchMode="contains">
+                                    <f:facet name="header">
+                                        <h:outputText value="Nombre Mascota"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.nombreMascota}"/>
+                                </p:column>
+                                
+                                <p:column filterBy="#{item.idTipoMascota.descripcion}" filterMatchMode="contains">
+                                    <f:facet name="header">
+                                        <h:outputText value="Tipo Mascota"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.idTipoMascota.descripcion}"/>
+                                </p:column>
+                                
+                                <p:column filterBy="#{item.edad}" filterMatchMode="contains">
+                                    <f:facet name="header">
+                                        <h:outputText value="Edad"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.edad}"/>
+                                </p:column>
+                                
+                                <p:column filterBy="#{item.raza}" filterMatchMode="contains">
+                                    <f:facet name="header">
+                                        <h:outputText value="Raza"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.raza}"/>
+                                </p:column>
+                                
+                            </p:dataTable>
+                        </p:panel>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+        <h:outputStylesheet name="css/layout-#{guestPreferences.layout}.css" library="barcelona-layout" />
+        <h:outputStylesheet name="css/ripple.css" library="barcelona-layout" />
+    </h:body>
+
+</html>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateMascotaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateMascotaLabel_idMascota}" for="idMascota" />
+                    <h:inputText id="idMascota" value="#{mascotaController.selected.idMascota}" title="#{bundle.CreateMascotaTitle_idMascota}" required="true" requiredMessage="#{bundle.CreateMascotaRequiredMessage_idMascota}"/>
+                    <h:outputLabel value="#{bundle.CreateMascotaLabel_idTipoMascota}" for="idTipoMascota" />
+                    <h:inputText id="idTipoMascota" value="#{mascotaController.selected.idTipoMascota}" title="#{bundle.CreateMascotaTitle_idTipoMascota}" required="true" requiredMessage="#{bundle.CreateMascotaRequiredMessage_idTipoMascota}"/>
+                    <h:outputLabel value="#{bundle.CreateMascotaLabel_edad}" for="edad" />
+                    <h:inputText id="edad" value="#{mascotaController.selected.edad}" title="#{bundle.CreateMascotaTitle_edad}" required="true" requiredMessage="#{bundle.CreateMascotaRequiredMessage_edad}"/>
+                    <h:outputLabel value="#{bundle.CreateMascotaLabel_raza}" for="raza" />
+                    <h:inputText id="raza" value="#{mascotaController.selected.raza}" title="#{bundle.CreateMascotaTitle_raza}" required="true" requiredMessage="#{bundle.CreateMascotaRequiredMessage_raza}"/>
+                    <h:outputLabel value="#{bundle.CreateMascotaLabel_tipoMascotaIdTipoMascota}" for="tipoMascotaIdTipoMascota" />
+                    <h:inputText id="tipoMascotaIdTipoMascota" value="#{mascotaController.selected.tipoMascotaIdTipoMascota}" title="#{bundle.CreateMascotaTitle_tipoMascotaIdTipoMascota}" required="true" requiredMessage="#{bundle.CreateMascotaRequiredMessage_tipoMascotaIdTipoMascota}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{mascotaController.create}" value="#{bundle.CreateMascotaSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{mascotaController.prepareList}" value="#{bundle.CreateMascotaShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateMascotaIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
